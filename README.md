@@ -12,17 +12,11 @@ Feature list:
 -Controllable character with collision detection on solid surfaces
 -Optional FOV visualization
 
-Notes:
--Creatures tend to slow the game in large numbers, and with larger maps.
--Creatures currently suffer from some screen tearing/pixel error.
+Bugs/Issues:
+-Too many creatures slows the game. Considering handling spawning in chunks.
 -Black borders around tiles and player/creatures are buggy and are disabled in the code.
 -360 degree field of view visualization works, but is slow. It is disabled in the code.
--Corner pins work, but they are imprecise by about 40 pixels, and the render's interpretation of them
-  narrows as the player approaches "void" space.
   
 Goals:
--Fix screen tearing/pixel error on enemies
--Fix corner pins to use correct coordinates
--Fix corner pins to be properly interpreted when faced with void space
--General optimization of large maps, possibly including a switch to one-dimensional arrays
+-Move to sprite-based graphics for greater detail.
 -Additon of a game manager, such that the user can choose the type/size of map
