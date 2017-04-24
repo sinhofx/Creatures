@@ -16,8 +16,8 @@ public class Game extends Canvas implements Runnable {
     public static final int WIDTH = 600;
     public static final int HEIGHT = WIDTH;
     public static int DEFAULT_TILE_SIZE = 16;
-    public static int MAP_SIZE_X = 32;
-    public static int MAP_SIZE_Y = 32;
+    public static int MAP_SIZE_X = 64;
+    public static int MAP_SIZE_Y = 64;
 
     private Dimension size;
     private JFrame frame;
@@ -46,24 +46,24 @@ public class Game extends Canvas implements Runnable {
         image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
         pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
         //top level graphics/controls/logic
-        screen = new Screen(); 
+        screen = new Screen();
         input = new Input();
         clock = new Clock();
         logic = new Logic();
-        frame.addKeyListener(input);        
+        frame.addKeyListener(input);
         //create map
         map = new Map(MAP_SIZE_X, MAP_SIZE_Y);
         map.generate();
         //spawn player
         player = new Actor(0, 0, 10, 10, true, 0xFF0000);
-        player.spawn(map);              
+        player.spawn(map);
         //spawn 100 enemies
         random = new Random();
         enemies = new Actor[100];
-        for (int i = 0; i < 100; i++) {
-            enemies[i] = new Actor(0, 0, random.nextInt(15), random.nextInt(15), false, random.nextInt());
+        for (int i = 0; i < enemies.length; i++) {
+            enemies[i] = new Actor(0, 0, random.nextInt(DEFAULT_TILE_SIZE - 1), random.nextInt(DEFAULT_TILE_SIZE - 1), false, random.nextInt());
             enemies[i].spawn(map);
-        }       
+        }
     }
 
     public synchronized void start() {
@@ -80,7 +80,7 @@ public class Game extends Canvas implements Runnable {
             JOptionPane.showMessageDialog(this, "Error: " + ex);
         }
         System.exit(0);
-        
+
     }
 
     @Override
@@ -123,7 +123,6 @@ public class Game extends Canvas implements Runnable {
         screen.renderEnemies(enemies); //buggy and slow
         //screen.renderFOV(map, player); //buggy and slow
         //screen.renderBorders(); //somewhat broken
-       
 
         for (int i = 0; i < pixels.length; i++) { //don't change this, it works
             int x = (i % WIDTH) + player.getX() - WIDTH / 2;

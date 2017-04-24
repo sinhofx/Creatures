@@ -23,13 +23,10 @@ public class Screen {
     public void renderTiles(Map map, Actor player) { //don't change this
         for (int y = topLeft.getY(); y < bottomRight.getY(); y++) {
             for (int x = topLeft.getX(); x < bottomRight.getX(); x++) {
-                int xp = x + topLeft.getX();
-                int yp = y + topLeft.getY();
-                int tileX = xp / Game.DEFAULT_TILE_SIZE;
-                int tileY = yp / Game.DEFAULT_TILE_SIZE;
-                if (xp >= 0 && xp < WIDTH && yp >= 0 && yp < HEIGHT) {
-                    pixels[xp][yp] = map.getMap()[tileX][tileY].getColor();
-
+                int tileX = x / Game.DEFAULT_TILE_SIZE;
+                int tileY = y / Game.DEFAULT_TILE_SIZE;
+                if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT) {
+                    pixels[x][y] = map.getMap()[tileX][tileY].getColor();
                 }
             }
         }
@@ -94,8 +91,8 @@ public class Screen {
         //Corner pins are off by almost exactly 40 pixels, for some reason.
         //Origin of that number is unclear. Artifically offsetting this
         //does not stop tearing problems with enemies. This works for now.
-        topLeft = new Vector2i(player.getX() - (WIDTH / 2), player.getY() - (HEIGHT / 2));
-        bottomRight = new Vector2i(player.getX() + (WIDTH / 2), player.getY() + (HEIGHT / 2));
+        topLeft = new Vector2i(player.getX() - (Game.WIDTH / 2), player.getY() - (Game.HEIGHT / 2));
+        bottomRight = new Vector2i(player.getX() + (Game.WIDTH / 2), player.getY() + (Game.HEIGHT / 2));
         //System.out.println("TOP LEFT: " + topLeft.getX() + ", " + topLeft.getY());
         //System.out.println("BOTTOM RIGHT : " + bottomRight.getX() + ", " + bottomRight.getY());
     }
