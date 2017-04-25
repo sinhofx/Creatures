@@ -46,7 +46,7 @@ public class Map {
         for (int y = 0; y < sizeY; y++) {
             for (int x = 0; x < sizeX; x++) {
                 if (x == 0 || x == sizeX - 1 || y == 0 || y == sizeY - 1) {
-                    map[x][y] = Tile.VOID_TILE;
+                   map[x][y] = Tile.VOID_TILE;
                 }
             }
         }

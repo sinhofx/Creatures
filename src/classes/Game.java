@@ -118,11 +118,11 @@ public class Game extends Canvas implements Runnable {
     }
 
     private void render() {
-        screen.renderTiles(map, player);
+        screen.renderTileTest(map, player);
         screen.renderPlayer(player);
-        screen.renderEnemies(enemies); //buggy and slow
+        screen.renderEnemies(enemies);
         //screen.renderFOV(map, player); //buggy and slow
-        //screen.renderBorders(); //somewhat broken
+        //screen.renderBorders(); //somewhat broken*/
 
         for (int i = 0; i < pixels.length; i++) { //don't change this, it works
             int x = (i % WIDTH) + player.getX() - WIDTH / 2;
@@ -132,6 +132,7 @@ public class Game extends Canvas implements Runnable {
             } else {
                 pixels[i] = 0;
             }
+                      
         }
 
         BufferStrategy bs = this.getBufferStrategy();

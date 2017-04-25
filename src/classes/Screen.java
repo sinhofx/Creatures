@@ -1,6 +1,9 @@
 package classes;
 
 import enums.Tile;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
+import java.awt.image.DataBufferInt;
 import java.util.Random;
 import utilities.MathTools;
 import utilities.Vector2i;
@@ -20,13 +23,12 @@ public class Screen {
         bottomRight = new Vector2i(WIDTH, HEIGHT);
     }
 
-    public void renderTiles(Map map, Actor player) { //don't change this
+    public void renderTileTest(Map map, Actor player) {
         for (int y = topLeft.getY(); y < bottomRight.getY(); y++) {
             for (int x = topLeft.getX(); x < bottomRight.getX(); x++) {
-                int tileX = x / Game.DEFAULT_TILE_SIZE;
-                int tileY = y / Game.DEFAULT_TILE_SIZE;
                 if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT) {
-                    pixels[x][y] = map.getMap()[tileX][tileY].getColor();
+                    Tile tile = map.getMap()[x / Game.DEFAULT_TILE_SIZE][y / Game.DEFAULT_TILE_SIZE];
+                    pixels[x][y] = tile.getSprite().getPixels()[x % Game.DEFAULT_TILE_SIZE][y % Game.DEFAULT_TILE_SIZE];
                 }
             }
         }
@@ -44,7 +46,7 @@ public class Screen {
         }
     }
 
-    public void renderEnemies(Actor[] enemies) { //needs optimization
+    public void renderEnemies(Actor[] enemies) {
         for (int y = topLeft.getY(); y < bottomRight.getY(); y++) {
             for (int x = topLeft.getX(); x < bottomRight.getX(); x++) {
                 for (Actor en : enemies) {
@@ -86,15 +88,24 @@ public class Screen {
             }
         }
     }
+    
+        /* DEPRECATED
+    public void renderTiles(Map map, Actor player) { //don't change this
+        for (int y = topLeft.getY(); y < bottomRight.getY(); y++) {
+            for (int x = topLeft.getX(); x < bottomRight.getX(); x++) {
+                int tileX = x / Game.DEFAULT_TILE_SIZE;
+                int tileY = y / Game.DEFAULT_TILE_SIZE;
+                if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT) {
+                    pixels[x][y] = map.getMap()[tileX][tileY].getColor();
+                }
+            }
+        }
+    }
+    */
 
     public void updateCornerPins(Actor player) {
-        //Corner pins are off by almost exactly 40 pixels, for some reason.
-        //Origin of that number is unclear. Artifically offsetting this
-        //does not stop tearing problems with enemies. This works for now.
         topLeft = new Vector2i(player.getX() - (Game.WIDTH / 2), player.getY() - (Game.HEIGHT / 2));
         bottomRight = new Vector2i(player.getX() + (Game.WIDTH / 2), player.getY() + (Game.HEIGHT / 2));
-        //System.out.println("TOP LEFT: " + topLeft.getX() + ", " + topLeft.getY());
-        //System.out.println("BOTTOM RIGHT : " + bottomRight.getX() + ", " + bottomRight.getY());
     }
 
     public int[][] getPixels() {
