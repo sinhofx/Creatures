@@ -16,7 +16,7 @@ Bugs/Issues:
 -Black borders around tiles are broken. May deprecate this feature, as it conflicts with aesthetic.  
   
 Goals:  
--Additon of a game manager, such that the user can choose the type/size of map  
+-Addition of a game manager, such that the user can choose the type/size of map  
 -Addition of more complex enemy logic/decision making  
 -Addition of environmental interaction  
 -Addition of combat  
